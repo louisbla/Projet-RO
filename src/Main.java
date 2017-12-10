@@ -1,6 +1,8 @@
 import Model.EnsembleTache;
 import View.Affichage;
 import Model.Parser;
+import Model.Calcul;
+import Model.EnsembleTache;
 
 import javax.swing.*;
 
@@ -17,9 +19,8 @@ public class Main
         System.out.println("Hello world");*/
         Parser.setCheminFichier("PROB401.TXT");
         Parser parse= new Parser(Parser.lireNbTaches());
-        System.out.println(Parser.lireNbTaches());
 
-        
+
 
         ensembleTache.setnbTaches(Parser.lireNbTaches());
         ensembleTache.settabTmpDepart(parse.lireTmpDepart());
@@ -51,6 +52,8 @@ public class Main
 
         }
 
+        int tempsOpti=Calcul.AlgoGenetique(ensembleTache.getnbTaches() ,ensembleTache.gettabTmpTraitement(),ensembleTache.gettabTmpDepart(),ensembleTache.gettabTmpReglages());
+        System.out.println(" le temps optimal est: " + tempsOpti);
         int[] ordre = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
         System.out.println("temps : " + ensembleTache.calculerTempTraitement(ordre));
 
