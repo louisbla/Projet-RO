@@ -235,6 +235,7 @@ public class Parser {
             sCurrentLine = br.readLine(); // on lit la premiere ligne
             sCurrentLine = br.readLine(); // on passe la ligne des temps de traitement
             sCurrentLine = br.readLine(); // passe la ligne de temps de depart
+            sCurrentLine = br.readLine();
 
             for (int i = 0; i < getnbTaches(); i++) {
                 StringTokenizer Tok = new StringTokenizer(sCurrentLine);

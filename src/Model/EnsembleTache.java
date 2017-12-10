@@ -73,8 +73,23 @@ public class EnsembleTache {
     }
 
 
+    //calcule le temps de traitement pour un ordre précis
+    public int calculerTempTraitement(int[] ordre){
+        //ordre représente l'ordre de passage des taches
 
+        int tempsTotal = 0;
 
+        //on ajoute le temps de démarrage et le temps de traitement de la premiere tache
+        tempsTotal += tabTmpDepart[ordre[0] - 1];   //-1 car la tache 1 est située à la case 0
+        tempsTotal += tabTmpTraitement[ordre[0] - 1];
+
+        for(int i=1; i < ordre.length; i++){
+            tempsTotal += tabTmpReglages[ordre[i-1] - 1][ordre[i] - 1];
+            tempsTotal += tabTmpTraitement[ordre[i] - 1];
+        }
+
+        return tempsTotal;
+    }
 
 
 

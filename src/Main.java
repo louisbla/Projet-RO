@@ -15,9 +15,10 @@ public class Main
         Affichage.afficherFenetre(fenetre);
         Affichage.afficherBouton(fenetre);
         System.out.println("Hello world");*/
-        Parser.setCheminFichier("PROB408.TXT");
+        Parser.setCheminFichier("PROB401.TXT");
         Parser parse= new Parser(Parser.lireNbTaches());
         System.out.println(Parser.lireNbTaches());
+
 
         ensembleTache.setnbTaches(Parser.lireNbTaches());
         ensembleTache.settabTmpDepart(parse.lireTmpDepart());
@@ -38,6 +39,7 @@ public class Main
         {
             System.out.print(ensembleTache.gettabTmpDepart(i)+" ");
         }
+        System.out.println();
         for(int i=0; i<15; i++)
         {
             for(int j=0;j<15;j++)
@@ -47,6 +49,9 @@ public class Main
             System.out.println();
 
         }
+
+        int[] ordre = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+        System.out.println("temps : " + ensembleTache.calculerTempTraitement(ordre));
 
     }
 }
