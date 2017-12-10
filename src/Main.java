@@ -53,9 +53,13 @@ public class Main
         }
 
         int[] tempsOpti=Calcul.AlgoGenetique(ensembleTache.getnbTaches() ,ensembleTache.gettabTmpTraitement(),ensembleTache.gettabTmpDepart(),ensembleTache.gettabTmpReglages());
-        System.out.println(" le temps optimal est: " + tempsOpti);
-        int[] ordre = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
-        System.out.println("temps : " + ensembleTache.calculerTempTraitement(ordre));
+        System.out.println(" l'ordre optimal trouvé est: " );
+        for(int i=0; i< ensembleTache.getnbTaches();i++)
+        {
+            System.out.print(tempsOpti[i]+" ");
+        }
+        System.out.println();
+        System.out.println("temps : " + ensembleTache.calculerTempTraitement(tempsOpti));
 
     }
 }
