@@ -52,7 +52,7 @@ public class Main
 
         }
 
-        int[] tempsOpti=Calcul.AlgoGenetique(ensembleTache.getnbTaches() ,ensembleTache.gettabTmpTraitement(),ensembleTache.gettabTmpDepart(),ensembleTache.gettabTmpReglages());
+        int[] tempsOpti=Calcul.AlgoGenetique(ensembleTache);
         System.out.println(" l'ordre optimal trouvé est: " );
         for(int i=0; i< ensembleTache.getnbTaches();i++)
         {
