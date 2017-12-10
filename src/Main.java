@@ -19,6 +19,7 @@ public class Main
         Parser parse= new Parser(Parser.lireNbTaches());
         System.out.println(Parser.lireNbTaches());
 
+        
 
         ensembleTache.setnbTaches(Parser.lireNbTaches());
         ensembleTache.settabTmpDepart(parse.lireTmpDepart());
