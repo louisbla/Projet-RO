@@ -6,8 +6,8 @@ public class Calcul {
     {
     int tempsOptimal[]=new int[ensembleTache.getnbTaches()];
     int tempOptimalBeforeChange[]=new int[ensembleTache.getnbTaches()];
-    int nombreTournoi=50;
-    int nombreIterationGenetique=1;
+    int nombreTournoi=100; // une population de 100 individus suffit largement
+    int nombreIterationGenetique=10000;
     int facteurMutation=5;
     int tabIndividus[][]= new int[nombreTournoi][ensembleTache.getnbTaches()];
     int tabEnfants[][]= new int[nombreTournoi][ensembleTache.getnbTaches()];
@@ -66,8 +66,8 @@ public class Calcul {
     int indentation=0;
     for(int genetique=0;genetique<nombreIterationGenetique;genetique++)
     {
-     cassure1=3;//ThreadLocalRandom.current().nextInt(1, (ensembleTache.getnbTaches()/2)-1);
-     cassure2=10;//ThreadLocalRandom.current().nextInt((ensembleTache.getnbTaches()/2)+1, ensembleTache.getnbTaches());
+     cassure1=ThreadLocalRandom.current().nextInt(1, (ensembleTache.getnbTaches()/2)-1);
+     cassure2=ThreadLocalRandom.current().nextInt((ensembleTache.getnbTaches()/2)+1, ensembleTache.getnbTaches()-2);
      //On choisit au hasard des element qui vont composer l'enfant voulu
 
      for(int compteur=0;compteur<nombreTournoi;compteur++)
@@ -120,14 +120,50 @@ public class Calcul {
      * la même taille de population donc on éliminera les 100 individus les moins bons pour ne garder que les
      * meilleurs */
      int tableauParentEnfant[][]= new int[nombreTournoi*2][ensembleTache.getnbTaches()];
-     for(int i=0;i<nombreTournoi*2;i++)
+     for(int i=0;i<nombreTournoi;i++)
      {
-         for(int j=0;j<ensembleTache.getnbTaches();j++)
-         {
-
+         for (int j = 0; j < ensembleTache.getnbTaches(); j++) {
+             tableauParentEnfant[i][j] = tabIndividus[i][j];
+             tableauParentEnfant[nombreTournoi+i][j]=tabEnfants[i][j];
          }
      }
+     // on procède ensuite à un tri a bulle pour classer les individus par ordre d'efficacité
+        int tabTampon[]= new int[ensembleTache.getnbTaches()];
+        for(int i=0;i<nombreTournoi;i++)
+        {
+            for(int j=0;j<nombreTournoi;j++)
+            {
+                if(ensembleTache.calculerTempTraitement(tableauParentEnfant[j])>ensembleTache.calculerTempTraitement(tableauParentEnfant[j+1]))
+                {
+                    for(int k=0;k<ensembleTache.getnbTaches();k++)
+                    {
+                        tabTampon[k]=tableauParentEnfant[j][k];
+                        tableauParentEnfant[j][k]=tableauParentEnfant[j+1][k];
+                        tableauParentEnfant[j+1][k]=tabTampon[k];
+                    }
+                }
+            }
+        }
+        //on modifie ensuite le tableau individu pour lui affecter les meilleurs individus triés precédement
+        for(int i=0;i<nombreTournoi;i++)
+        {
+            for(int j=0;j<ensembleTache.getnbTaches();j++)
+            {
+                tabIndividus[i][j]=tableauParentEnfant[i][j];
+            }
+        }
+        // on effectue une mutation au hasard, afin de sortir d'un eventuel minimum local
+        int mutation=ThreadLocalRandom.current().nextInt(0, 100);
+        if(mutation<facteurMutation)
+        {
+            int individuMutable=ThreadLocalRandom.current().nextInt(0, ensembleTache.getnbTaches());
+            int j=ThreadLocalRandom.current().nextInt(0, ensembleTache.getnbTaches());
+            int k=ThreadLocalRandom.current().nextInt(0, ensembleTache.getnbTaches());
+            int tampon=tabIndividus[individuMutable][j];
+            tabIndividus[individuMutable][j]=tabIndividus[individuMutable][k];
+            tabIndividus[individuMutable][k]=tampon;
 
+        }
 
     }
 

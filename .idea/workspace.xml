@@ -39,8 +39,8 @@
       <file leaf-file-name="Calcul.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Model/Calcul.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="122" column="34" lean-forward="true" selection-start-line="122" selection-start-column="34" selection-end-line="122" selection-end-column="34" />
+            <state relative-caret-position="247">
+              <caret line="69" column="114" lean-forward="false" selection-start-line="69" selection-start-column="114" selection-end-line="69" selection-end-column="114" />
               <folding />
             </state>
           </provider>
@@ -51,6 +51,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>12</find>
+      <find>9</find>
+      <find>15</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -301,12 +303,6 @@
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Model/Calcul.java</url>
-          <line>100</line>
-          <properties />
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
       </breakpoints>
       <option name="time" value="5" />
     </breakpoint-manager>
@@ -357,8 +353,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/Calcul.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="122" column="34" lean-forward="true" selection-start-line="122" selection-start-column="34" selection-end-line="122" selection-end-column="34" />
+        <state relative-caret-position="247">
+          <caret line="69" column="114" lean-forward="false" selection-start-line="69" selection-start-column="114" selection-end-line="69" selection-end-column="114" />
           <folding />
         </state>
       </provider>
