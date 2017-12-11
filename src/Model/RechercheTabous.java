@@ -1,20 +1,34 @@
 package Model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class RechercheTabous {
-    int bestResult;  //Contient la fonction objectif de la meilleure solution.
-    static int[] bestSolution; //représente la meilleure solution trouvée depuis le lancement de l'algo
+    static ArrayList<Integer> bestSolution = new ArrayList<>(); //représente la meilleure solution trouvée depuis le lancement de l'algo
 
-    int[] activSolution; //représente la solution actuelle
-    static ArrayList<int[]> listTabou = new ArrayList<>();  //représente l'ensemble des solutions tabous
+    static ArrayList<ArrayList<Integer>> listTabou = new ArrayList<>();  //représente l'ensemble des solutions tabous
 
 
-    public static int[] AlgorithmeTabou(EnsembleTache ensembleTache){
+    public static ArrayList<Integer> AlgorithmeTabou(EnsembleTache ensembleTache){
         int nbTaches = ensembleTache.getnbTaches();
         //int[] ordre = randomOrderTab(nbTaches);
-        int[] ordre = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+        ArrayList<Integer> ordre = new ArrayList<>();
+        ordre.add(1);
+        ordre.add(2);
+        ordre.add(3);
+        ordre.add(4);
+        ordre.add(5);
+        ordre.add(6);
+        ordre.add(7);
+        ordre.add(8);
+        ordre.add(9);
+        ordre.add(10);
+        ordre.add(11);
+        ordre.add(12);
+        ordre.add(13);
+        ordre.add(14);
+        ordre.add(15);
 
         int nbRep = 0;
 
@@ -36,15 +50,17 @@ public class RechercheTabous {
                     }
                 }
             }
-            if(tabChgmtCouts[i][j] < 0){
-                System.out.println("optimum local atteint au bout de " + nbRep + " iterations");
+            if(tabChgmtCouts[i][j] < 0){//si l'optimum local est atteint
                 listTabou.add(ordre);
                 ordre = switchTwoTasks(ordre, i, j);
             }
             else {
                 listTabou.add(ordre);
                 ordre = switchTwoTasks(ordre, i,j);
-                bestSolution = ordre.clone();
+                bestSolution.clear();
+                for (int k = 0; k < ordre.size(); k++) {
+                    bestSolution.add(ordre.get(k));
+                }
             }
 
 
@@ -64,7 +80,7 @@ public class RechercheTabous {
     }
 
 
-    public static int[][] getChgmtCouts(EnsembleTache ensembleTache, int[] ordre) {
+    public static int[][] getChgmtCouts(EnsembleTache ensembleTache, ArrayList<Integer> ordre) {
         int nbTaches = ensembleTache.getnbTaches();
         int coutActuel = ensembleTache.calculerTempTraitement(ordre);
 
@@ -79,11 +95,10 @@ public class RechercheTabous {
     }
 
 
-
-    private static int[] switchTwoTasks(int[] tab, int i, int j){
-        int[] newTab = tab.clone();
-        newTab[j] = tab[i];
-        newTab[i] = tab[j];
+    private static ArrayList<Integer> switchTwoTasks(ArrayList<Integer> tab, int i, int j){
+        ArrayList<Integer> newTab = new ArrayList<>(tab);
+        newTab.set(j, tab.get(i));
+        newTab.set(i, tab.get(j));
 
         return newTab;
     }
