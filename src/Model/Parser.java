@@ -5,51 +5,17 @@ import java.util.*;
 public class Parser {
     //Déclaration des variables
     private int nbTaches;
-    private int tabTmpTraitement[];
-    private int tabTmpDepart[];
-    private int tabTmpReglages[][];
     private static String CheminFichier;
 
     public Parser(int nbTacheLu)
     {
         nbTaches=nbTacheLu;
-        tabTmpTraitement= new int[nbTacheLu];
-        tabTmpDepart=new int[nbTacheLu];
-        tabTmpReglages=new int[nbTacheLu][nbTacheLu];
     }
     //Déclaration des getter
     public int getnbTaches()
     {
         return nbTaches;
     }
-
-    public int[] gettabTmpTraitement()
-    {
-        return tabTmpTraitement;
-    }
-    public int gettabTmpTraitement(int i)
-    {
-        return tabTmpTraitement[i];
-    }
-
-    public int[] gettabTmpDepart()
-    {
-        return tabTmpDepart;
-    }
-    public int gettabTmpDepart(int i)
-    {
-        return tabTmpDepart[i];
-    }
-
-    public int[][] gettabTmpReglages()
-    {
-        return tabTmpReglages;
-    }
-    public int gettabTmpReglages(int i, int j)
-    {
-        return tabTmpReglages[i][j];
-    }
-
     public String getCheminFichier()
     {
         return CheminFichier;
@@ -60,34 +26,6 @@ public class Parser {
     {
         nbTaches=newNbTahes;
     }
-
-    public void settabTmpTraitement(int[] newTabTmpTraitement)
-    {
-        tabTmpTraitement=newTabTmpTraitement;
-    }
-    public void settabTmpTraitement(int i, int newVal)
-    {
-        tabTmpTraitement[i]=newVal;
-    }
-
-    public void settabTmpDepart(int[] newTabTmpDepart)
-    {
-        tabTmpDepart=newTabTmpDepart;
-    }
-    public void settabTmpDepart(int i, int newVal)
-    {
-        tabTmpDepart[i]=newVal;
-    }
-
-    public void settabTmpReglages(int[][] newTabTmpReglages)
-    {
-        tabTmpReglages=newTabTmpReglages;
-    }
-    public void settabTmpReglages(int i, int j, int newVal)
-    {
-        tabTmpReglages[i][j]=newVal;
-    }
-
     public static void setCheminFichier(String newCheminFichier)
     {
         CheminFichier=newCheminFichier;
@@ -149,7 +87,6 @@ public class Parser {
             for(int i=0; i< getnbTaches();i++)
             {
                 bufferVal= Integer.parseInt(Tok.nextToken());
-                settabTmpTraitement(i, bufferVal);
                 result[i] = bufferVal;
             }
             //String numberOnly= sCurrentLine.replaceAll("[^0-9]", "");
@@ -196,7 +133,6 @@ public class Parser {
             for(int i=0; i< getnbTaches();i++)
             {
                 bufferVal= Integer.parseInt(Tok.nextToken());
-                settabTmpDepart(i, bufferVal);
                 result[i] = bufferVal;
             }
         }
@@ -242,7 +178,6 @@ public class Parser {
                 sCurrentLine = br.readLine();
                 for (int j = 0; j < getnbTaches(); j++) {
                     bufferVal = Integer.parseInt(Tok.nextToken());
-                    settabTmpReglages(i, j, bufferVal);
                     result[i][j] = bufferVal;
                 }
 

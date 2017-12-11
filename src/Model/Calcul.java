@@ -7,12 +7,18 @@ public class Calcul {
     int tempsOptimal[]=new int[ensembleTache.getnbTaches()];
     int tempOptimalBeforeChange[]=new int[ensembleTache.getnbTaches()];
     int nombreTournoi=100; // une population de 100 individus suffit largement
-    int nombreIterationGenetique=10000;
+    int nombreIterationGenetique=1;
     int facteurMutation=5;
     int tabIndividus[][]= new int[nombreTournoi][ensembleTache.getnbTaches()];
     int tabEnfants[][]= new int[nombreTournoi][ensembleTache.getnbTaches()];
     int tempVal;
     int random;
+    int cassure1=0; // les cassures serviront à decouper les gènes parents
+    int cassure2=0;
+    int placeElementAChanger1=0;
+    int placeElementAChanger2=0;
+    int placeElementAChanger3=0;
+    int indentation;
 
     // on initialise le tableau de l'ordre de nos taches
 
@@ -58,12 +64,7 @@ public class Calcul {
       * Nous remplacerons les pire parents par les meilleurs enfants.  on inclus également un coefficient de mutation
       * aléatoire, ce dernier nous permettra de sortir d'un eventuel minimum local*/
 
-    int cassure1=0; // on initialise deux cassure qui prendront des valeures aléatoire afin de combiner d'eventuels parents
-    int cassure2=0;
-    int placeElementAChanger1=0;
-    int placeElementAChanger2=0;
-    int placeElementAChanger3=0;
-    int indentation=0;
+
     for(int genetique=0;genetique<nombreIterationGenetique;genetique++)
     {
      cassure1=ThreadLocalRandom.current().nextInt(1, (ensembleTache.getnbTaches()/2)-1);
@@ -144,6 +145,8 @@ public class Calcul {
                 }
             }
         }
+
+
         //on modifie ensuite le tableau individu pour lui affecter les meilleurs individus triés precédement
         for(int i=0;i<nombreTournoi;i++)
         {
@@ -162,7 +165,6 @@ public class Calcul {
             int tampon=tabIndividus[individuMutable][j];
             tabIndividus[individuMutable][j]=tabIndividus[individuMutable][k];
             tabIndividus[individuMutable][k]=tampon;
-
         }
 
     }
