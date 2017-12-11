@@ -25,7 +25,7 @@ public class Main
         ensembleTache.setnbTaches(Parser.lireNbTaches());
         ensembleTache.settabTmpDepart(parse.lireTmpDepart());
         ensembleTache.settabTmpReglages(parse.lireTmpReglages());
-        ensembleTache.settabTmpTraitement(parse.gettabTmpTraitement());
+        ensembleTache.settabTmpTraitement(parse.lireTmpTraitement());
 
 
         parse.lireTmpTraitement();
