@@ -12,7 +12,10 @@ public class RechercheTabous {
 
 
     public static int[] AlgorithmeTabou(EnsembleTache ensembleTache){
-        int[] ordre = randomOrderTab(ensembleTache.getnbTaches());
+        int nbTaches = ensembleTache.getnbTaches();
+        int[] ordre = randomOrderTab(nbTaches);
+
+        int[][] tabChgmtCouts = getChgmtCouts(ensembleTache, ordre);
 
         switchTwoTasks(ordre, 1,2);
 
@@ -26,12 +29,26 @@ public class RechercheTabous {
         return null;
     }
 
-    private static int[] switchTwoTasks(int[] tab, int i, int j){
-        int temp = tab[j];
-        tab[j] = tab[i];
-        tab[i] = temp;
+    public static int[][] getChgmtCouts(EnsembleTache ensembleTache, int[] ordre) {
+        int nbTaches = ensembleTache.getnbTaches();
+        int coutActuel = ensembleTache.calculerTempTraitement(ordre);
 
-        return tab;
+        //Creation du tableau des changement de couts
+        int[][] chgmtCouts = new int[nbTaches][nbTaches];
+        for(int i=0; i < nbTaches; i++){
+            for(int j=0; j < nbTaches; j++){
+                chgmtCouts[i][j] = coutActuel - ensembleTache.calculerTempTraitement(switchTwoTasks(ordre, i, j));
+            }
+        }
+        return chgmtCouts;
+    }
+
+    private static int[] switchTwoTasks(int[] tab, int i, int j){
+        int[] newTab = tab.clone();
+        newTab[j] = tab[i];
+        newTab[i] = tab[j];
+
+        return newTab;
     }
 
     private static int[] randomOrderTab(int nbTaches) {
