@@ -17,7 +17,6 @@ public class RechercheTabous {
 
         int[][] tabChgmtCouts = getChgmtCouts(ensembleTache, ordre);
 
-        switchTwoTasks(ordre, 1,2);
 
 
 
@@ -42,6 +41,8 @@ public class RechercheTabous {
         }
         return chgmtCouts;
     }
+
+    
 
     private static int[] switchTwoTasks(int[] tab, int i, int j){
         int[] newTab = tab.clone();
