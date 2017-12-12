@@ -7,8 +7,8 @@ public class Calcul {
     int tempsOptimal[]=new int[ensembleTache.getnbTaches()];
     int tempOptimalBeforeChange[]=new int[ensembleTache.getnbTaches()];
     int nombreTournoi=100; // une population de 100 individus suffit largement
-    int nombreIterationGenetique=1;
-    int facteurMutation=5;
+    int nombreIterationGenetique=100000;
+    int facteurMutation=50;
     int tabIndividus[][]= new int[nombreTournoi][ensembleTache.getnbTaches()];
     int tabEnfants[][]= new int[nombreTournoi][ensembleTache.getnbTaches()];
     int tempVal;
@@ -19,6 +19,8 @@ public class Calcul {
     int placeElementAChanger2=0;
     int placeElementAChanger3=0;
     int indentation;
+    int tableauParentEnfant[][]= new int[nombreTournoi*2][ensembleTache.getnbTaches()];
+    int tabTampon[]= new int[ensembleTache.getnbTaches()];
 
     // on initialise le tableau de l'ordre de nos taches
 
@@ -67,72 +69,70 @@ public class Calcul {
 
     for(int genetique=0;genetique<nombreIterationGenetique;genetique++)
     {
-     cassure1=ThreadLocalRandom.current().nextInt(1, (ensembleTache.getnbTaches()/2)-1);
-     cassure2=ThreadLocalRandom.current().nextInt((ensembleTache.getnbTaches()/2)+1, ensembleTache.getnbTaches()-2);
-     //On choisit au hasard des element qui vont composer l'enfant voulu
+         cassure1=ThreadLocalRandom.current().nextInt(1, (ensembleTache.getnbTaches()/2)-1);
+         cassure2=ThreadLocalRandom.current().nextInt((ensembleTache.getnbTaches()/2)+1, ensembleTache.getnbTaches()-2);
 
-     for(int compteur=0;compteur<nombreTournoi;compteur++)
-     {
-         placeElementAChanger1=ThreadLocalRandom.current().nextInt(0, nombreTournoi);
-         placeElementAChanger2=ThreadLocalRandom.current().nextInt(0, nombreTournoi);
-         placeElementAChanger3=ThreadLocalRandom.current().nextInt(0, nombreTournoi);
-
-         // Ensuite on remplis le tableau d'enfant avec les elements pris au hasard
-         for(int compteurCasssure1=0; compteurCasssure1<cassure1;compteurCasssure1++)
+         for(int compteur=0;compteur<nombreTournoi;compteur++)
          {
-             tabEnfants[compteur][compteurCasssure1]=tabIndividus[placeElementAChanger1][compteurCasssure1];
-         }
-         indentation=0;
-         boolean existePas=false;
-         for(int compteurCasssure2=cassure1; compteurCasssure2<cassure2;compteurCasssure2++)
-         {
+             //On choisit au hasard des element qui vont composer l'enfant voulu
+             placeElementAChanger1=ThreadLocalRandom.current().nextInt(0, nombreTournoi);
+             placeElementAChanger2=ThreadLocalRandom.current().nextInt(0, nombreTournoi);
+             placeElementAChanger3=ThreadLocalRandom.current().nextInt(0, nombreTournoi);
 
-             for(int verifDoublon=0;verifDoublon<cassure1;verifDoublon++)
+             // Ensuite on remplis le tableau d'enfant avec les elements pris au hasard
+             for(int compteurCasssure1=0; compteurCasssure1<cassure1;compteurCasssure1++)
              {
-                 // n va utiliser un % au cas ou on devrait retourner au debut du tableau chercher la valeur suivante
-                if(tabEnfants[compteur][verifDoublon]==tabIndividus[placeElementAChanger2][(compteurCasssure2+indentation)%(ensembleTache.getnbTaches())])
-                {
-                    // si on trouve un doublon, on passe au chiffre d'apres et on retest depuis le début
-                    indentation++;
-                    verifDoublon=0;
-                }
+                 tabEnfants[compteur][compteurCasssure1]=tabIndividus[placeElementAChanger1][compteurCasssure1];
              }
-             tabEnfants[compteur][compteurCasssure2]=tabIndividus[placeElementAChanger2][(compteurCasssure2+indentation)%(ensembleTache.getnbTaches())];
-         }
-         indentation=0;
-         for(int compteurFinTaches=cassure2;compteurFinTaches<ensembleTache.getnbTaches();compteurFinTaches++)
-         {
-
-             for(int verifDoublon=0;verifDoublon<cassure2;verifDoublon++)
+             indentation=0;
+             for(int compteurCasssure2=cassure1; compteurCasssure2<cassure2;compteurCasssure2++)
              {
-             // n va utiliser un % au cas ou on devrait retourner au debut du tableau chercher la valeur suivante
-                 if(tabEnfants[compteur][verifDoublon]==tabIndividus[placeElementAChanger3][(compteurFinTaches+indentation)%(ensembleTache.getnbTaches())])
+
+                 for(int verifDoublon=0;verifDoublon<cassure1;verifDoublon++)
                  {
-                     indentation++;
-                     verifDoublon=0;
+                     // n va utiliser un % au cas ou on devrait retourner au debut du tableau chercher la valeur suivante
+                    if(tabEnfants[compteur][verifDoublon]==tabIndividus[placeElementAChanger2][(compteurCasssure2+indentation)%(ensembleTache.getnbTaches())])
+                    {
+                        // si on trouve un doublon, on passe au chiffre d'apres et on retest depuis le début
+                        indentation++;
+                        verifDoublon=-1;
+                    }
                  }
-            }
+                 tabEnfants[compteur][compteurCasssure2]=tabIndividus[placeElementAChanger2][(compteurCasssure2+indentation)%(ensembleTache.getnbTaches())];
+             }
+             indentation=0;
+             for(int compteurFinTaches=cassure2;compteurFinTaches<ensembleTache.getnbTaches();compteurFinTaches++)
+             {
 
-             tabEnfants[compteur][compteurFinTaches]=tabIndividus[placeElementAChanger3][(compteurFinTaches+indentation)%(ensembleTache.getnbTaches())];
+                 for(int verifDoublon=0;verifDoublon<cassure2;verifDoublon++)
+                 {
+                 // n va utiliser un % au cas ou on devrait retourner au debut du tableau chercher la valeur suivante
+                     if(tabEnfants[compteur][verifDoublon]==tabIndividus[placeElementAChanger3][(compteurFinTaches+indentation)%(ensembleTache.getnbTaches())])
+                     {
+                         indentation++;
+                         verifDoublon=-1; // car quand on va sortir de l'iteration de boucle verifDoubon va augmenter a 0
+                     }
+                 }
+                 tabEnfants[compteur][compteurFinTaches]=tabIndividus[placeElementAChanger3][(compteurFinTaches+indentation)%(ensembleTache.getnbTaches())];
+             }
          }
-     }
 
-     /*on va ensuite trier les valeurs obtenus en prenant en comptes les parents et les enfants. On gardera
-     * la même taille de population donc on éliminera les 100 individus les moins bons pour ne garder que les
-     * meilleurs */
-     int tableauParentEnfant[][]= new int[nombreTournoi*2][ensembleTache.getnbTaches()];
-     for(int i=0;i<nombreTournoi;i++)
-     {
-         for (int j = 0; j < ensembleTache.getnbTaches(); j++) {
-             tableauParentEnfant[i][j] = tabIndividus[i][j];
-             tableauParentEnfant[nombreTournoi+i][j]=tabEnfants[i][j];
+         /*on va ensuite trier les valeurs obtenus en prenant en comptes les parents et les enfants. On gardera
+         * la même taille de population donc on éliminera les 100 individus les moins bons pour ne garder que les
+         * meilleurs */
+
+         for(int i=0;i<nombreTournoi;i++)
+         {
+             for (int j = 0; j < ensembleTache.getnbTaches(); j++) {
+                 tableauParentEnfant[i][j] = tabIndividus[i][j];
+                 tableauParentEnfant[nombreTournoi+i][j]=tabEnfants[i][j];
+             }
          }
-     }
-     // on procède ensuite à un tri a bulle pour classer les individus par ordre d'efficacité
-        int tabTampon[]= new int[ensembleTache.getnbTaches()];
-        for(int i=0;i<nombreTournoi;i++)
+         // on procède ensuite à un tri a bulle pour classer les individus par ordre d'efficacité
+
+        for(int i=0;i<nombreTournoi*2;i++)
         {
-            for(int j=0;j<nombreTournoi;j++)
+            for(int j=0;j<nombreTournoi*2-1;j++)
             {
                 if(ensembleTache.calculerTempTraitement(tableauParentEnfant[j])>ensembleTache.calculerTempTraitement(tableauParentEnfant[j+1]))
                 {
@@ -145,57 +145,26 @@ public class Calcul {
                 }
             }
         }
-
-
-        //on modifie ensuite le tableau individu pour lui affecter les meilleurs individus triés precédement
-        for(int i=0;i<nombreTournoi;i++)
-        {
-            for(int j=0;j<ensembleTache.getnbTaches();j++)
+            //on modifie ensuite le tableau individu pour lui affecter les meilleurs individus triés precédement
+            for(int i=0;i<nombreTournoi;i++)
             {
-                tabIndividus[i][j]=tableauParentEnfant[i][j];
+                for(int j=0;j<ensembleTache.getnbTaches();j++)
+                {
+                    tabIndividus[i][j]=tableauParentEnfant[i][j];;
+                }
             }
-        }
-        // on effectue une mutation au hasard, afin de sortir d'un eventuel minimum local
-        int mutation=ThreadLocalRandom.current().nextInt(0, 100);
-        if(mutation<facteurMutation)
-        {
-            int individuMutable=ThreadLocalRandom.current().nextInt(0, ensembleTache.getnbTaches());
-            int j=ThreadLocalRandom.current().nextInt(0, ensembleTache.getnbTaches());
-            int k=ThreadLocalRandom.current().nextInt(0, ensembleTache.getnbTaches());
-            int tampon=tabIndividus[individuMutable][j];
-            tabIndividus[individuMutable][j]=tabIndividus[individuMutable][k];
-            tabIndividus[individuMutable][k]=tampon;
-        }
-
+            // on effectue une mutation au hasard, afin de sortir d'un eventuel minimum local
+            int mutation=ThreadLocalRandom.current().nextInt(0, 100);
+            if(mutation<facteurMutation)
+            {
+                int individuMutable=ThreadLocalRandom.current().nextInt(1, nombreTournoi); // on ne mute pas le meilleur element
+                int j=ThreadLocalRandom.current().nextInt(0, ensembleTache.getnbTaches());
+                int k=ThreadLocalRandom.current().nextInt(0, ensembleTache.getnbTaches());
+                int tampon=tabIndividus[individuMutable][j];
+                tabIndividus[individuMutable][j]=tabIndividus[individuMutable][k];
+                tabIndividus[individuMutable][k]=tampon;
+            }
     }
-
-
-
-    System.out.println("cassure: "+cassure1 +" "+ cassure2);
-    System.out.println(placeElementAChanger1);
-    System.out.println(placeElementAChanger2);
-    System.out.println(placeElementAChanger3);
-
-    System.out.println(" tab des individu:");
-        for(int i=0;i<nombreTournoi;i++)
-        {
-            for(int j=0;j<ensembleTache.getnbTaches();j++)
-            {
-                System.out.print(tabIndividus[i][j]+" ");
-            }
-            System.out.println();
-        }
-
-        System.out.println(" tab des enfants:");
-        for(int i=0;i<nombreTournoi;i++)
-        {
-            for(int j=0;j<ensembleTache.getnbTaches();j++)
-            {
-                System.out.print(tabEnfants[i][j]+" ");
-            }
-            System.out.println();
-        }
-
-        return tempsOptimal;
+        return tabIndividus[0];
     }
 }
