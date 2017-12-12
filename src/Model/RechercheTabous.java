@@ -82,7 +82,7 @@ public class RechercheTabous {
 
             nbRep++;
             System.out.println("Nombre d'itérations : " + nbRep);
-        }while(nbRep < 8000);
+        }while(nbRep < 1300);
 
 
 

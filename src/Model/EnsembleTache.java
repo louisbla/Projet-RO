@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class EnsembleTache {
     private int nbTaches;
     private int tabTmpTraitement[];
@@ -88,6 +90,24 @@ public class EnsembleTache {
         for(int i=1; i < ordre.length; i++){
             tempsTotal += tabTmpReglages[ordre[i-1] - 1][ordre[i] - 1];
             tempsTotal += tabTmpTraitement[ordre[i] - 1];
+        }
+
+        return tempsTotal;
+    }
+
+    public int calculerTempTraitement(ArrayList<Integer> ordre){
+        //ordre représente l'ordre de passage des taches
+
+        int tempsTotal = 0;
+
+        //on ajoute le temps de démarrage et le temps de traitement de la premiere tache
+        tempsTotal += tabTmpDepart[ordre.get(0) - 1];   //-1 car la tache 1 est située à la case 0
+        tempsTotal += tabTmpTraitement[ordre.get(0) - 1];
+
+        //Pour chaque tache suivante, on ajoute le temps de reglage, puis le temps de traitement
+        for(int i=1; i < ordre.size(); i++){
+            tempsTotal += tabTmpReglages[ordre.get(i-1) - 1][ordre.get(i) - 1];
+            tempsTotal += tabTmpTraitement[ordre.get(i) - 1];
         }
 
         return tempsTotal;

@@ -1,10 +1,9 @@
-import Model.EnsembleTache;
+import Model.*;
 import View.Affichage;
-import Model.Parser;
-import Model.Calcul;
 import Model.EnsembleTache;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Main
 {
@@ -52,14 +51,15 @@ public class Main
 
         }
 
-        int[] tempsOpti=Calcul.AlgoGenetique(ensembleTache);
-        System.out.println(" l'ordre optimal trouvé est: " );
-        for(int i=0; i< ensembleTache.getnbTaches();i++)
-        {
-            System.out.print(tempsOpti[i]+" ");
-        }
         System.out.println();
-        System.out.println("temps : " + ensembleTache.calculerTempTraitement(tempsOpti));
+        System.out.println();
+
+        ArrayList<Integer> bestSol = new ArrayList<>();
+        bestSol = RechercheTabous.AlgorithmeTabou(ensembleTache);
+
+        System.out.println("rech tab : " + ensembleTache.calculerTempTraitement(bestSol) + " avec " + bestSol);
+        System.out.println("La meilleur solution a été trouvée en " + (RechercheTabous.nbIterationsPourBest+1) + " itérations");
+        System.out.println("Mais " + (RechercheTabous.nbRepSansAmelioration+1) + " itérations dans la derniere generation aleatoire");
 
     }
 }
