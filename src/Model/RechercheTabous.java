@@ -1,6 +1,5 @@
 package Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -9,10 +8,14 @@ public class RechercheTabous {
 
     static ArrayList<ArrayList<Integer>> listTabou = new ArrayList<>();  //représente l'ensemble des solutions tabous
 
+    public static int nbIterationsPourBest = 0;
+    public static int nbRepSansAmelioration = 0;
 
     public static ArrayList<Integer> AlgorithmeTabou(EnsembleTache ensembleTache){
         int nbTaches = ensembleTache.getnbTaches();
-        //int[] ordre = randomOrderTab(nbTaches);
+
+        ArrayList<Integer> ordre = randomOrderTab(nbTaches);
+/*
         ArrayList<Integer> ordre = new ArrayList<>();
         ordre.add(1);
         ordre.add(2);
@@ -28,8 +31,9 @@ public class RechercheTabous {
         ordre.add(12);
         ordre.add(13);
         ordre.add(14);
-        ordre.add(15);
+        ordre.add(15);*/
 
+        bestSolution = ordre;
         int nbRep = 0;
 
         do {
@@ -53,26 +57,32 @@ public class RechercheTabous {
             if(tabChgmtCouts[i][j] < 0){//si l'optimum local est atteint
                 listTabou.add(ordre);
                 ordre = switchTwoTasks(ordre, i, j);
+
             }
             else {
                 listTabou.add(ordre);
                 ordre = switchTwoTasks(ordre, i,j);
-                bestSolution.clear();
-                for (int k = 0; k < ordre.size(); k++) {
-                    bestSolution.add(ordre.get(k));
+
+                if(ensembleTache.calculerTempTraitement(ordre) < ensembleTache.calculerTempTraitement(bestSolution)) {
+                    bestSolution.clear();
+                    for (int k = 0; k < ordre.size(); k++) {
+                        bestSolution.add(ordre.get(k));
+                        nbIterationsPourBest = nbRep;
+                    }
+                }
+                else{
+                    nbRepSansAmelioration++;
                 }
             }
 
+            if(nbRepSansAmelioration > 100) { //Si on ne trouve pas de meilleur solution au bout de 100 rep, on génère une nouvelle solution aléatoire
+                ordre = randomOrderTab(nbTaches);
+                nbRepSansAmelioration = 0;
+            }
 
             nbRep++;
-        }while(nbRep < 1000);
-
-
-
-
-
-
-
+            System.out.println("Nombre d'itérations : " + nbRep);
+        }while(nbRep < 8000);
 
 
 
@@ -103,8 +113,7 @@ public class RechercheTabous {
         return newTab;
     }
 
-    private static int[] randomOrderTab(int nbTaches) {
-        int[] result = new int[nbTaches];
+    private static ArrayList<Integer> randomOrderTab(int nbTaches) {
 
         ArrayList<Integer> list = new ArrayList<>();
         for(int i=0; i < nbTaches; i++){
@@ -112,11 +121,7 @@ public class RechercheTabous {
         }
         Collections.shuffle(list);
 
-        for(int i=0; i < nbTaches; i++){
-            result[i] = list.get(i);
-        }
-
-        return result;
+        return list;
     }
 
 
