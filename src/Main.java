@@ -11,15 +11,8 @@ public class Main
     public static void main(String[] args)
     {
         EnsembleTache ensembleTache = new EnsembleTache();
-        int nbTaches=0;
-        /*JFrame fenetre = new JFrame();
-        Affichage.afficherFenetre(fenetre);
-        Affichage.afficherBouton(fenetre);
-        System.out.println("Hello world");*/
         Parser.setCheminFichier("PROB401.TXT");
         Parser parse= new Parser(Parser.lireNbTaches());
-
-
 
         ensembleTache.setnbTaches(Parser.lireNbTaches());
         ensembleTache.settabTmpDepart(parse.lireTmpDepart());
@@ -61,7 +54,7 @@ public class Main
         System.out.println("La meilleur solution a été trouvée en " + (RechercheTabous.nbIterationsPourBest+1) + " itérations");
         System.out.println("Mais " + (RechercheTabous.nbRepSansAmelioration+1) + " itérations dans la derniere generation aleatoire");
 
-        int[] tempOpti= Calcul.AlgoGenetique(ensembleTache);
+        int[] tempOpti= AlgorithmeGenetique.AlgoGenetique(ensembleTache);
         System.out.println(ensembleTache.calculerTempTraitement(tempOpti));
 
     }
