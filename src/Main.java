@@ -18,7 +18,7 @@ public class Main
 
         long tempsDepart=System.currentTimeMillis();
         EnsembleTache ensembleTache = new EnsembleTache();
-        Parser.setCheminFichier("PROB401.TXT");
+        Parser.setCheminFichier(args[0]); // correspond à l'argument du fichier
         Parser parse= new Parser(Parser.lireNbTaches());
         ensembleTache.setnbTaches(Parser.lireNbTaches());
         ensembleTache.settabTmpDepart(parse.lireTmpDepart());
@@ -37,9 +37,8 @@ public class Main
             ArrayList<Integer> bestSol;
             bestSol = RechercheTabous.AlgorithmeTabou(ensembleTache, nombreIte);
 
-            System.out.println("rech tab : " + ensembleTache.calculerTempTraitement(bestSol) + " avec " + bestSol);
+            System.out.println("cout optimal " + ensembleTache.calculerTempTraitement(bestSol) + " avec l'ordre: " + bestSol);
             System.out.println("La meilleur solution a été trouvée en " + (RechercheTabous.nbIterationsPourBest+1) + " itérations");
-            System.out.println("Mais " + (RechercheTabous.nbRepSansAmelioration+1) + " itérations dans la derniere generation aleatoire");
         }
 
         if(n==2)
@@ -51,7 +50,7 @@ public class Main
             System.out.println("veuillez entrer le nombre de mutation par itérations");
             facteurMutation = reader.nextInt();
             int[] tempOpti= AlgorithmeGenetique.AlgoGenetique(ensembleTache, nombreTournoi, nombreIterationGenetique, facteurMutation);
-            System.out.println(ensembleTache.calculerTempTraitement(tempOpti));
+            System.out.print("temps optimal: " +ensembleTache.calculerTempTraitement(tempOpti)+" avec l'ordre: ");
             for(int i=0; i<15; i++)
             {
                 System.out.print(tempOpti[i]+" ");
