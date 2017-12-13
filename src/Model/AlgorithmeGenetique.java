@@ -6,10 +6,10 @@ public class AlgorithmeGenetique {
     {
         /*Les trois variables ci dessous permettent de configurer notre algorithme génétique
          * en définissant la taille des tournois, le nombre de mutations et le facteur de mutation */
-        int nombreTournoi=50; // une population de 100 individus suffit largement
+        int nombreTournoi=100; // une population de 100 individus suffit largement
         int adversaireParTournoi=100;
-        int nombreIterationGenetique=10000;
-        int facteurMutation=50;
+        int nombreIterationGenetique=1000;
+        int facteurMutation=20;
 
         /* on déclare ensuite les tableaux que nous allons utiliser */
         int tempsOptimal[]=new int[ensembleTache.getnbTaches()];
@@ -29,20 +29,16 @@ public class AlgorithmeGenetique {
         int placeElementAChanger1; // Les palces sont les individus parents qui vont composer l'individu enfant
         int placeElementAChanger2;
         int placeElementAChanger3;
-
         int indentation; // va nous servir pour comparer les différentes taches savoir si elles sont deja dans l'individus enfant
 
 
-
-
-    // on a choisi ici a selection par tournoi avec un nombre de participant de 20 et une population finale de
         for(int tournoi=0; tournoi<nombreTournoi;tournoi++)
         {
             for(int i=0;i< ensembleTache.getnbTaches();i++)
             {
                 tempsOptimal[i]=i+1; // pour chaque tournoi on repart de l'ordre de base
             }
-            // pour chaque tournoi on selectionne 100 éléments au hasard, on ne gardera que le meilleur à chaque fois
+            // pour chaque tournoi on selectionne adversaireParTournoi éléments au hasard, on ne gardera que le meilleur à chaque fois
             for(int selection=0;selection<adversaireParTournoi;selection++)
             {
                 for(int parcoursTab=0;parcoursTab<ensembleTache.getnbTaches();parcoursTab++)
@@ -68,7 +64,6 @@ public class AlgorithmeGenetique {
             {
                 tabIndividus[tournoi][i]=tempsOptimal[i];
             }
-            // on affecte ici le temps afin de ne pas le recalculer
         }
 
         /* a la sortie de ce tournoi nous avons donc une poputation initiale conséquente placé dans un tableau. nous

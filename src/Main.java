@@ -10,6 +10,7 @@ public class Main
 
     public static void main(String[] args)
     {
+        long tempsDepart=System.currentTimeMillis();
         EnsembleTache ensembleTache = new EnsembleTache();
         Parser.setCheminFichier("PROB401.TXT");
         Parser parse= new Parser(Parser.lireNbTaches());
@@ -53,10 +54,17 @@ public class Main
         System.out.println("rech tab : " + ensembleTache.calculerTempTraitement(bestSol) + " avec " + bestSol);
         System.out.println("La meilleur solution a été trouvée en " + (RechercheTabous.nbIterationsPourBest+1) + " itérations");
         System.out.println("Mais " + (RechercheTabous.nbRepSansAmelioration+1) + " itérations dans la derniere generation aleatoire");
-
+*/
         int[] tempOpti= AlgorithmeGenetique.AlgoGenetique(ensembleTache);
         System.out.println(ensembleTache.calculerTempTraitement(tempOpti));
-*/
+        for(int i=0; i<15; i++)
+        {
+            System.out.print(tempOpti[i]+" ");
+        }
+        System.out.println();
+        long tempsExec=(System.currentTimeMillis()-tempsDepart);
+        System.out.println("Temps d'execution: "+tempsExec+ " Millisecondes");
+
     }
 }
 
