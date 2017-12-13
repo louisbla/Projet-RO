@@ -11,7 +11,7 @@ public class RechercheTabous {
     public static int nbIterationsPourBest = 0;
     public static int nbRepSansAmelioration = 0;
 
-    public static ArrayList<Integer> AlgorithmeTabou(EnsembleTache ensembleTache){
+    public static ArrayList<Integer> AlgorithmeTabou(EnsembleTache ensembleTache, int nombreIte){
         int nbTaches = ensembleTache.getnbTaches();
 
         ArrayList<Integer> ordre = randomOrderTab(nbTaches);

@@ -2,14 +2,14 @@ package Model;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AlgorithmeGenetique {
-    public static int[] AlgoGenetique(EnsembleTache ensembleTache)
+    public static int[] AlgoGenetique(EnsembleTache ensembleTache, int nbreTournoi, int nbreIterationGenetique, int facteurMut)
     {
         /*Les trois variables ci dessous permettent de configurer notre algorithme génétique
          * en définissant la taille des tournois, le nombre de mutations et le facteur de mutation */
-        int nombreTournoi=100; // une population de 100 individus suffit largement
-        int adversaireParTournoi=1000;
-        int nombreIterationGenetique=10000;
-        int facteurMutation=20;
+        int nombreTournoi=nbreTournoi; // une population de 100 individus suffit largement
+        int adversaireParTournoi=100;
+        int nombreIterationGenetique=nbreIterationGenetique;
+        int facteurMutation=facteurMut;
 
         /* on déclare ensuite les tableaux que nous allons utiliser */
         int tempsOptimal[]=new int[ensembleTache.getnbTaches()];

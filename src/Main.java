@@ -10,6 +10,11 @@ public class Main
     public static void main(String[] args)
     {
         int n=0;
+        //Valeurs de base pour l'algorithme génétique
+        int nombreTournoi=100;
+        int nombreIterationGenetique=10000;
+        int facteurMutation=20;
+        int nombreIte;
 
         long tempsDepart=System.currentTimeMillis();
         EnsembleTache ensembleTache = new EnsembleTache();
@@ -23,16 +28,14 @@ public class Main
         Scanner reader = new Scanner(System.in);
         System.out.println("Taper 1 pour utiliser la recherche tabou");
         System.out.println("Taper 2 pour utiliser l'algorithe genetique");
-        while(n!=1 || n!=2)
-        {
-            n = reader.nextInt();
-        }
+        n = reader.nextInt();
 
         if(n==1)
         {
-
-            ArrayList<Integer> bestSol = new ArrayList<>();
-            bestSol = RechercheTabous.AlgorithmeTabou(ensembleTache);
+            System.out.println("veuillez entrer le nombre d'iterations (30 000 est un bon debut)");
+            nombreIte = reader.nextInt();
+            ArrayList<Integer> bestSol;
+            bestSol = RechercheTabous.AlgorithmeTabou(ensembleTache, nombreIte);
 
             System.out.println("rech tab : " + ensembleTache.calculerTempTraitement(bestSol) + " avec " + bestSol);
             System.out.println("La meilleur solution a été trouvée en " + (RechercheTabous.nbIterationsPourBest+1) + " itérations");
@@ -41,7 +44,13 @@ public class Main
 
         if(n==2)
         {
-            int[] tempOpti= AlgorithmeGenetique.AlgoGenetique(ensembleTache);
+            System.out.println("veuillez entrer la taille de la population");
+            nombreTournoi = reader.nextInt();
+            System.out.println("veuillez entrer le nombre d'itérations genetiqeus");
+            nombreIterationGenetique = reader.nextInt();
+            System.out.println("veuillez entrer le nombre de mutation par itérations");
+            facteurMutation = reader.nextInt();
+            int[] tempOpti= AlgorithmeGenetique.AlgoGenetique(ensembleTache, nombreTournoi, nombreIterationGenetique, facteurMutation);
             System.out.println(ensembleTache.calculerTempTraitement(tempOpti));
             for(int i=0; i<15; i++)
             {
