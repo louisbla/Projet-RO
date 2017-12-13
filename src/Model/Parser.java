@@ -1,6 +1,5 @@
 package Model;
 import java.io.*;
-import java.util.*;
 import java.util.Scanner;
 
 public class Parser {
@@ -43,6 +42,7 @@ public class Parser {
         {
             scan = new Scanner(file);
             nbTacheReturn = scan.nextInt();
+            scan.close();
         }
         catch (IOException e)
         {
@@ -65,6 +65,7 @@ public class Parser {
             {
                 result[i] = scan.nextInt();
             }
+            scan.close();
         }
         catch (IOException e)
         {
@@ -92,6 +93,7 @@ public class Parser {
             {
                 result[i] = scan.nextInt();
             }
+            scan.close();
         }
         catch (IOException e)
         {
@@ -121,6 +123,7 @@ public class Parser {
                     result[i][j] = scan.nextInt();
                 }
             }
+            scan.close();
         }
         catch (IOException e)
         {

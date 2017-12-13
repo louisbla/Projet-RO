@@ -7,8 +7,8 @@ public class AlgorithmeGenetique {
         /*Les trois variables ci dessous permettent de configurer notre algorithme génétique
          * en définissant la taille des tournois, le nombre de mutations et le facteur de mutation */
         int nombreTournoi=100; // une population de 100 individus suffit largement
-        int adversaireParTournoi=100;
-        int nombreIterationGenetique=1000;
+        int adversaireParTournoi=1000;
+        int nombreIterationGenetique=10000;
         int facteurMutation=20;
 
         /* on déclare ensuite les tableaux que nous allons utiliser */
@@ -164,7 +164,7 @@ public class AlgorithmeGenetique {
                  * facteurMutation on défini combien de mutations peuvent survenir*/
                 for(int mutation=0; mutation<facteurMutation;mutation++)
                 {
-                    int individuMutable=ThreadLocalRandom.current().nextInt(1, nombreTournoi); // on ne mute pas le meilleur element
+                    int individuMutable=ThreadLocalRandom.current().nextInt(nombreTournoi/2, nombreTournoi); // on ne mute pas le meilleur element
                     int j=ThreadLocalRandom.current().nextInt(0, ensembleTache.getnbTaches());
                     int k=ThreadLocalRandom.current().nextInt(0, ensembleTache.getnbTaches());
                     int tampon=tabIndividus[individuMutable][j];
