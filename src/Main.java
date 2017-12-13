@@ -32,7 +32,7 @@ public class Main
 
         if(n==1)
         {
-            System.out.println("veuillez entrer le nombre d'iterations (30 000 est un bon debut)");
+            System.out.println("veuillez entrer le nombre d'iterations (10 000 est un bon debut)");
             nombreIte = reader.nextInt();
             ArrayList<Integer> bestSol;
             bestSol = RechercheTabous.AlgorithmeTabou(ensembleTache, nombreIte);
