@@ -6,8 +6,8 @@ public class Calcul {
     {
     int tempsOptimal[]=new int[ensembleTache.getnbTaches()];
     int tempOptimalBeforeChange[]=new int[ensembleTache.getnbTaches()];
-    int nombreTournoi=100; // une population de 100 individus suffit largement
-    int nombreIterationGenetique=100000;
+    int nombreTournoi=50; // une population de 100 individus suffit largement
+    int nombreIterationGenetique=10000;
     int facteurMutation=50;
     int tabIndividus[][]= new int[nombreTournoi][ensembleTache.getnbTaches()];
     int tabEnfants[][]= new int[nombreTournoi][ensembleTache.getnbTaches()];

@@ -61,6 +61,9 @@ public class Main
         System.out.println("La meilleur solution a été trouvée en " + (RechercheTabous.nbIterationsPourBest+1) + " itérations");
         System.out.println("Mais " + (RechercheTabous.nbRepSansAmelioration+1) + " itérations dans la derniere generation aleatoire");
 
+        int[] tempOpti= Calcul.AlgoGenetique(ensembleTache);
+        System.out.println(ensembleTache.calculerTempTraitement(tempOpti));
+
     }
 }
 

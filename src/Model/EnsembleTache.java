@@ -110,6 +110,7 @@ public class EnsembleTache {
             tempsTotal += tabTmpTraitement[ordre.get(i) - 1];
         }
 
+
         return tempsTotal;
     }
 
