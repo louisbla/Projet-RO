@@ -1,6 +1,7 @@
 package Model;
 import java.io.*;
 import java.util.*;
+import java.util.Scanner;
 
 public class Parser {
     //Déclaration des variables
@@ -35,166 +36,95 @@ public class Parser {
 
     public static int lireNbTaches()
     {
-        BufferedReader br= null;
-        FileReader fr = null;
+        Scanner scan;
+        File file = new File(CheminFichier);
         int nbTacheReturn=0;
-
         try
         {
-            fr = new FileReader(CheminFichier);
-            br = new BufferedReader(fr);
-            String sCurrentLine;
-           sCurrentLine= br.readLine();
-            String numberOnly= sCurrentLine.replaceAll("[^0-9]", "");
-           nbTacheReturn= Integer.parseInt(numberOnly); }
+            scan = new Scanner(file);
+            nbTacheReturn = scan.nextInt();
+        }
         catch (IOException e)
         {
             e.printStackTrace();
-        }
-
-        finally {
-
-            try {
-
-                if (br != null)
-                    br.close();
-                if (fr != null)
-                    fr.close();
-            } catch (IOException ex)
-            {
-                ex.printStackTrace();
-            }
         }
         return nbTacheReturn;
     }
 
     public int[] lireTmpTraitement()
     {
-        BufferedReader br= null;
-        FileReader fr = null;
-        int bufferVal;
-
+        Scanner scan;
+        int nbtaches;
+        File file = new File(CheminFichier);
         int[] result = new int[getnbTaches()];
-
         try
         {
-            fr = new FileReader(CheminFichier);
-            br = new BufferedReader(fr);
-            String sCurrentLine;
-            sCurrentLine= br.readLine(); // on lit la premiere ligne
-            sCurrentLine= br.readLine(); // on récupère la seconde
-            StringTokenizer Tok = new StringTokenizer(sCurrentLine);
-            for(int i=0; i< getnbTaches();i++)
+            scan = new Scanner(file);
+            nbtaches = scan.nextInt(); // on passe la lecture du nb tache
+            for(int i=0;i<nbtaches;i++)
             {
-                bufferVal= Integer.parseInt(Tok.nextToken());
-                result[i] = bufferVal;
+                result[i] = scan.nextInt();
             }
-            //String numberOnly= sCurrentLine.replaceAll("[^0-9]", "");
-           //nbTaches=Integer.parseInt(numberOnly);
         }
         catch (IOException e)
         {
             e.printStackTrace();
-        }
-
-        finally {
-
-            try {
-
-                if (br != null)
-                    br.close();
-                if (fr != null)
-                    fr.close();
-            } catch (IOException ex)
-            {
-                ex.printStackTrace();
-            }
         }
         return result;
     }
 
     public int[] lireTmpDepart()
     {
-        BufferedReader br= null;
-        FileReader fr = null;
-        int bufferVal;
-
+        Scanner scan;
+        int nbtaches;
+        int tmp;
+        File file = new File(CheminFichier);
         int[] result = new int[getnbTaches()];
-
         try
         {
-            fr = new FileReader(CheminFichier);
-            br = new BufferedReader(fr);
-            String sCurrentLine;
-            sCurrentLine= br.readLine(); // on lit la premiere ligne
-            sCurrentLine= br.readLine(); // on passe la ligne des temps de traitement
-            sCurrentLine= br.readLine(); // on récupère la troisieme ligne
-            StringTokenizer Tok = new StringTokenizer(sCurrentLine);
-            for(int i=0; i< getnbTaches();i++)
+            scan = new Scanner(file);
+            nbtaches = scan.nextInt(); // on passe la lecture du nb tache
+            for(int i=0;i<nbtaches;i++)
             {
-                bufferVal= Integer.parseInt(Tok.nextToken());
-                result[i] = bufferVal;
+                tmp= scan.nextInt();
+            }
+            for(int i=0;i<nbtaches;i++)
+            {
+                result[i] = scan.nextInt();
             }
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
-
-        finally {
-
-            try {
-
-                if (br != null)
-                    br.close();
-                if (fr != null)
-                    fr.close();
-            } catch (IOException ex)
-            {
-                ex.printStackTrace();
-            }
-        }
         return result;
     }
 
     public int[][] lireTmpReglages() {
-        BufferedReader br = null;
-        FileReader fr = null;
-        int bufferVal;
-
+        Scanner scan;
+        int nbtaches;
+        int tmp;
+        File file = new File(CheminFichier);
         int[][] result = new int[getnbTaches()][getnbTaches()];
-
-        try {
-            fr = new FileReader(CheminFichier);
-            br = new BufferedReader(fr);
-            String sCurrentLine;
-            sCurrentLine = br.readLine(); // on lit la premiere ligne
-            sCurrentLine = br.readLine(); // on passe la ligne des temps de traitement
-            sCurrentLine = br.readLine(); // passe la ligne de temps de depart
-            sCurrentLine = br.readLine();
-
-            for (int i = 0; i < getnbTaches(); i++) {
-                StringTokenizer Tok = new StringTokenizer(sCurrentLine);
-                sCurrentLine = br.readLine();
-                for (int j = 0; j < getnbTaches(); j++) {
-                    bufferVal = Integer.parseInt(Tok.nextToken());
-                    result[i][j] = bufferVal;
+        try
+        {
+            scan = new Scanner(file);
+            nbtaches = scan.nextInt(); // on passe la lecture du nb tache
+            for(int i=0;i<nbtaches*2;i++)
+            {
+                tmp= scan.nextInt();
+            }
+            for(int i=0;i<nbtaches;i++)
+            {
+                for(int j=0;j<nbtaches;j++)
+                {
+                    result[i][j] = scan.nextInt();
                 }
-
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
-        } finally {
-
-            try {
-
-                if (br != null)
-                    br.close();
-                if (fr != null)
-                    fr.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
         }
         return result;
     }

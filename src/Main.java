@@ -46,7 +46,7 @@ public class Main
 
         System.out.println();
         System.out.println();
-
+/*
         ArrayList<Integer> bestSol = new ArrayList<>();
         bestSol = RechercheTabous.AlgorithmeTabou(ensembleTache);
 
@@ -56,7 +56,7 @@ public class Main
 
         int[] tempOpti= AlgorithmeGenetique.AlgoGenetique(ensembleTache);
         System.out.println(ensembleTache.calculerTempTraitement(tempOpti));
-
+*/
     }
 }
 
