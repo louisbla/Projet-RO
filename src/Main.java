@@ -18,7 +18,7 @@ public class Main
 
         long tempsDepart=System.currentTimeMillis();
         EnsembleTache ensembleTache = new EnsembleTache();
-        Parser.setCheminFichier(args[0]); // correspond à l'argument du fichier
+        Parser.setCheminFichier("PROB605.TXT"); // correspond à l'argument du fichier
         Parser parse= new Parser(Parser.lireNbTaches());
         ensembleTache.setnbTaches(Parser.lireNbTaches());
         ensembleTache.settabTmpDepart(parse.lireTmpDepart());
@@ -51,7 +51,7 @@ public class Main
             facteurMutation = reader.nextInt();
             int[] tempOpti= AlgorithmeGenetique.AlgoGenetique(ensembleTache, nombreTournoi, nombreIterationGenetique, facteurMutation);
             System.out.print("temps optimal: " +ensembleTache.calculerTempTraitement(tempOpti)+" avec l'ordre: ");
-            for(int i=0; i<15; i++)
+            for(int i=0; i<Parser.lireNbTaches(); i++)
             {
                 System.out.print(tempOpti[i]+" ");
             }
